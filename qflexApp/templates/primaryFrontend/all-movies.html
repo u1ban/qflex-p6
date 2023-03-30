@@ -1,0 +1,52 @@
+{% extends '../base.html' %}
+
+{% block title %}Все фильмы{% endblock %}
+
+{% block content %}
+    <div class="all-movies">
+        <div class="container">
+            <h1 class="mb-4 text-light">All movies</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body">
+                            <h3>Search</h3>
+                            <form action="{% url 'allMoviesPage' %}" class="mb-5">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <input class="form-control" name="search" type="search" placeholder="Default input" aria-label="default input example">
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <h3>Filter</h3>
+                            <ul>
+                                <li><a href="{% url 'allMoviesPage' %}" style="text-decoration: none; color: #fff">All genres</a></li>
+                                {% for genre in genres %}
+                                <li><a href="{% url 'filterMoviesPage' slug=genre.slug %}" style="text-decoration: none; color: #fff">{{ genre.genreName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    {% for movie in movies %}
+                    <div class="card mb-4 bg-dark text-light" style="width: 50%">
+                        <div class="card-body">
+                            <a href="{% url 'movieDetailPage' pk=movie.pk %}"><img src="{{ movie.poster }}" alt="" class="card-img-top mb-2" style="width: 100%"></a>
+                            <h3>{{ movie.movieName }}</h3>
+                            {% if movie.rating > 6 %}
+                            <h5 class="text-success">{{ movie.rating }}</h5>
+                            {% else %}
+                            <h5 class="text-danger">{{ movie.rating }}</h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

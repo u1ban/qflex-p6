@@ -1,0 +1,54 @@
+{% extends '../base.html' %}
+
+{% block title %}Фильмы{% endblock %}
+
+{% block content %}
+<div class="movie-detail">
+    <div class="container">
+        <div class="card mb-5 bg-dark text-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ movie.poster }}" width="100%" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                        <div class="col-md-10">
+                            <h1 class="mb-4">{{ movie.movieName }}</h1>
+                        </div>
+                        <div class="col-md-2">
+                            <h3 class="text-success">{{ movie.rating }}</h3>
+                        </div>
+                            </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p>Жанр</p>
+                                <p>Год производства</p>
+                                <p>Страна</p>
+                                <p>Режиссер</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ movie.genre.genreName }}</p>
+                                <p>{{movie.year}}</p>
+                                <p>{{movie.country}}</p>
+                                <p>{{movie.producer}}</p>
+                            </div>
+                        </div>
+                        <h5>Описание</h5>
+                        <p>{{ movie.description }}</p>
+                        <a href="#watch" class="btn btn-danger mt-3">Watch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="watch">
+            <div class="card-body">
+                <iframe width="100%" height="500" src="{{ movie.movieLink }}" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

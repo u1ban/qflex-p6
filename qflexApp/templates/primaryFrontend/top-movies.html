@@ -1,0 +1,51 @@
+{% extends '../base.html' %}
+
+{% block title %}Топ фильмы{% endblock %}
+
+{% block content %}
+<div class="top-movies">
+    <div class="container">
+        {% for m in movie %}
+        {% if m.isRecommended %}
+        <h1 class="mb-4 text-light">Top movies</h1>
+        <div class="card mb-5 bg-dark text-light" style="background: url({{ m.cover }}); background-size: cover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h2 class="pb-2">{{ m.movieName }}</h2>
+                    </div>
+                    <div class="col-md-1">
+                        <h2 class="pb-2 text-success">{{ m.rating }}</h2>
+                    </div>
+                    <p>{{ m.description }}</p>
+                    <a href="{% url 'movieDetailPage' pk=m.pk %}" class="btn btn-danger col-md-1 ms-2">Watch</a>
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h3>No recommended movie</h3>
+        {% endif %}
+        {% endfor %}
+        <div class="owl-carousel owl-theme">
+            {% for movie in movies %}
+            {% if movie.isTopTen %}
+            <div class="item">
+                <div class="card text-light border-0" style="background-color: #1a1a1a">
+                    <div class="card-body">
+                        <img src="{{ movie.poster }}" alt="" class="card-img-top mb-2" style="width: 100%">
+                        <h2>{{ movie.movieName }}</h2>
+                        <a href="{% url 'movieDetailPage' pk=movie.pk %}" class="btn btn-danger">Watch</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <h3>Nothing</h3>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
